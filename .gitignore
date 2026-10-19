@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.ckpt
+*.pth
+*.npz
+*.npy
+*.nii.gz
+*.mha
+/medpseg_r/data/
+/medpseg_r/runs/
+/medpseg_r/outputs/
+/results/
