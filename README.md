@@ -7,7 +7,7 @@ Adult CT" by Huseyin Umut Isik, Ege Mert Balçık, Duygu Atasoy, Asutosh Sahu, S
 Airway models trained on adult CT miss different peripheral branches, and their own
 largest-component post-processing can keep a non-airway object instead of the airway, which happens
 more often on pediatric scans. We combine three models by voxel-wise union of their raw outputs and
-keep the connected component that overlaps one trusted member most. No pediatric training is
+keep the connected component that overlaps one member most. No pediatric training is
 involved.
 
 <p align="center"><img src="docs/figures/overview.png" width="420" alt="Method overview"></p>
@@ -52,8 +52,7 @@ Adults: 30 held-out ATM'26 volumes. Pediatric: nine examinations from Boston Chi
 the paper.
 
 Ours detects the most branches in both cohorts. Over the best anchored pair, the third model adds
-0.47 percentage points of BND in adults (95% CI 0.31 to 0.64, better in 18 of 30 cases and worse in
-none, paired Wilcoxon p < 0.001) and 0.64 in children (better in 6 of 9, worse in none).
+0.47 percentage points of BND in adults (95% CI 0.31 to 0.64, paired Wilcoxon p < 0.001) and 0.64 in children (better in 6 of 9, worse in none).
 
 The fused mask also carries a voxel confidence derived from the members' vote pattern. Fitted on the
 validation volumes, it separates false-positive from true-positive voxels on the adult test set
