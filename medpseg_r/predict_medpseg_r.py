@@ -12,9 +12,9 @@ Outputs, per case, under --out-root/<split>/:
   prob (float16 airway probability), original_shape; for --image-dir splits also <name>/medpseg_airway.nii.gz
   with the scan's geometry.
 
-    python predict_medpseg_r_v2.py --weight runs/medpseg_r_seed20251014/checkpoints/epoch_035.ckpt \
+    python predict_medpseg_r.py --weight runs/medpseg_r_seed20251014/checkpoints/epoch_035.ckpt \
         --splits test val --out-root outputs/epoch035
-    python predict_medpseg_r_v2.py --weight ... --splits mycohort --image-dir /path/to/images --out-root ...
+    python predict_medpseg_r.py --weight ... --splits mycohort --image-dir /path/to/images --out-root ...
 """
 import argparse
 import json

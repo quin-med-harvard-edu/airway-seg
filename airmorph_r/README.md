@@ -24,9 +24,9 @@ The paper's partition (239 train / 30 val / 30 test) is `../splits/atm26_split.j
 Images carry a `_0000` suffix, labels do not; `discover_cases` pairs them by id.
 
 
-## The model ↔ loss mapping
+## Model and loss mapping
 
-Derived from the source, not guessed. The repo expects exactly 5 airway checkpoints and
+The mapping follows the released code. The repo expects exactly 5 airway checkpoints and
 the paper describes exactly 5 models, each with a distinct topology-preserving loss.
 
 | # | Checkpoint | Network | `layer_order` | out ch | Ckpt format | Loss |
@@ -78,7 +78,7 @@ Five independent models make the embarrassingly-parallel axis free anyway. It al
 `droplayer`'s bare `.cuda()` call (`networks/airway_network_wingsnet.py:101`) correct by
 construction, since each process sees exactly one device.
 
-## Verified before shipping
+## Checks
 
 - All 5 networks build, forward, and backward; **zero parameters without gradient**.
 - Every exported checkpoint loads into the **provided** `UNet3D` / `WingsNet_v3` classes
@@ -91,14 +91,14 @@ construction, since each process sees exactly one device.
 
 Every departure from the paper, with its justification.
 
-## A. Corrections — the paper as printed does not run
+## A. Corrections needed to run the published description
 
 | # | Deviation | Why it is necessary |
 |---|---|---|
 | A1 | **Dice+Focal implemented as `(1-Dice) + Focal`** rather than the printed `-(Dice - Focal)` | The literal form expands to `-Dice + (1/\|X\|)Σ(1-p)²log p`. Since `log p ≤ 0` the second term is minimised by driving `p → 0` on the foreground: the loss is unbounded below and diverges. |
 | A2 | **CAL's `Σ αx CE` normalised by `Σ αx`** (weighted mean) | Unnormalised, a sum over ~8.7 M voxels is ~10⁶× the overlap term, making that term inert. `ce_reduction="sum"` restores the literal form. |
 | A3 | **LSD's `‖·‖₂` normalised by `√numel`** | The raw L2 over 8.7 M voxels is O(10³) and would swamp `L_CAL` entirely. |
-| A4 | **Model 5 = Dice + Breakage-Sensitive, not BS alone** | `L_BS = 1 - Σ p·c / Σ c` is soft recall on the centreline with no false-positive term: `p ≡ 1` everywhere gives `L_BS ≈ 0`. Trained alone it collapses to all-foreground. In its source it is an auxiliary term. |
+| A4 | **Model 5 = Dice + Breakage-Sensitive, not BS alone** | `L_BS = 1 - Σ p·c / Σ c` is soft recall on the centerline with no false-positive term: `p ≡ 1` everywhere gives `L_BS ≈ 0`. Trained alone it collapses to all-foreground. In its source it is an auxiliary term. |
 | A5 | **GUL clamps `p ≥ 1e-6` before `pow(0.7)`** | `d/dp p^0.7 = 0.7 p^-0.3 → ∞` at `p = 0`; NaN on the first iteration otherwise. |
 | A6 | **All loss reductions forced to fp32 under bf16 autocast** | Summing 8.7 M values in reduced precision discards exactly the faint peripheral-branch contributions these losses exist to preserve. bf16 (not fp16) is used so `p^0.7` and the large sums do not overflow. |
 | A7 | **`clDice` reimplemented in `training/eval_patch.py`** | `util/airwayatlas_eval.py:141` reads `skeletonize(gt_mask, method="lee\`")` — a stray backtick that makes **every** 3D `clDice` call raise. Original file untouched; see "Proposed upstream patches". |
@@ -112,10 +112,10 @@ Every departure from the paper, with its justification.
 |---|---|---|
 | B1 | **CAL combines its two groups by SUM, not product** | Checked against the PDF text layer, not eyeballed: on the formula line the first group's `)` is at column 51, the `+` at column 52, and the second group's `(` at column 53. The operator is unambiguously between the groups. A product would also zero the gradient whenever either factor → 0. `combine="product"` retained as a flag. |
 | B2 | **CAL's `βt = 0.9`** | The paper prints "αt = 0.1, and αt = 0.9". The formula uses both `αt` and `βt`; the second is plainly `βt`. |
-| B3 | **`αx = 1 + gain·exp(-d/τ)·g`, τ = 3 mm, gain = 4** | The paper says only "the weight of each airway voxel based on the Euclidean distance to the centerline" — it does not say in which direction. Centreline-peak was chosen because the loss is *connectivity*-aware: the centreline core is what must not break. |
+| B3 | **`αx = 1 + gain·exp(-d/τ)·g`, τ = 3 mm, gain = 4** | The paper says only "the weight of each airway voxel based on the Euclidean distance to the centerline" — it does not say in which direction. Centreline-peak was chosen because the loss is *connectivity*-aware: the centerline core is what must not break. |
 | B4 | **GUL's `w_x` set equal to `α_x`** | The paper uses two symbols in one formula and defines neither. |
 | B5 | **Differentiable `Dist()` = iterated soft erosion (min-pool), 5 steps** | The paper defers entirely to ref [22]. This is the standard differentiable distance transform and is a.e.-differentiable. |
-| B6 | **Peripheral over-sampling = uniform over centreline points, reweighted by `radius^-1`** | "over-sampling guided by the spatial distribution of centerline points" gives no function. Two effects combine: most centreline points already lie in distal branches, and the radius term biases further toward thin ones. |
+| B6 | **Peripheral over-sampling = uniform over centerline points, reweighted by `radius^-1`** | "over-sampling guided by the spatial distribution of centerline points" gives no function. Two effects combine: most centerline points already lie in distal branches, and the radius term biases further toward thin ones. |
 | B7 | **Flip on the last axis; rotation in the axial plane only, ±10°** | "random horizontal flipping" and "random rotation in [-10°, +10°]" name no axis. L-R flip and in-plane axial rotation are the standard chest-CT reading. |
 | B8 | **Stage-1 lung attention applied to the LOSS, not the input** | The deployed pipeline only *crops* to the lung bounding box; it never multiplies the CT by the lung mask. Masking the input would create a train/test mismatch, so the mask is applied to the loss instead — same false-positive suppression, zero mismatch. |
 | B9 | **Hard-patch mining schedule** (from epoch 150, refresh every 10, 25 % rotating subset, top-256 centres/case, `p_hard = 0.5`, FN weighted 3× FP) | "early-stage model predictions are used to identify and resample hard patches in later epochs" gives no schedule or criterion. FN is weighted above FP because breakage is what the topology losses target. |

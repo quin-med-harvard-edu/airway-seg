@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Stage 1 of the TfeNet baseline: run TfeNet over a split and save airway masks.
+"""Run TfeNet over a split and save its airway masks.
 
-TfeNet lives in its own conda env (`/path/to/envs/conda-envs/tfenet`,
-torch 2.5.1+cu121) with the compiled DAConv/DSConv extensions, so - as with MEDPSeg -
-prediction and scoring are split. This script writes masks; `training/score_external.py`
-scores them with the metric code used for the five AirMorph models.
+TfeNet runs in its own environment (torch 2.5.1+cu121 with the compiled DAConv/DSConv
+extensions), so prediction and scoring are split: this script writes masks, and
+evaluation/table1.py scores them.
 
 The prediction path replicates `TfeNet/run_pipeline.py`, which is three of TfeNet's own
 scripts chained:
@@ -18,15 +17,13 @@ Both variants are saved per case:
     raw   - the union, before post-processing
     post  - largest connected component, TfeNet's shipped final output
 
-CHECKPOINT CHOICE: `TfeNet/evaluation.py` hardcodes `checkpoint/ATM22/`, which is trained
-on the ATM22 public training set - the same 299 cases `data/ATM26/imagesTr` holds and our
-splits are carved from. Every one of our test cases was almost certainly in its training
-data, so that checkpoint is NOT usable as a held-out baseline. This script therefore takes
-`--ckpt-set` and defaults to BAS. Use BAS or AIIB23; both are trained on other datasets and
-are genuinely held out on our split, at the cost of a domain shift.
+CHECKPOINT CHOICE: `TfeNet/evaluation.py` hardcodes `checkpoint/ATM22/`, which was trained on the
+ATM22 public training set, the pool our split is drawn from, so it is not used. `--ckpt-set`
+defaults to BAS, the checkpoint used in the paper. Note that BAS itself is built from LIDC-IDRI
+and EXACT'09 scans, some of which also appear in ATM'22/ATM'26.
 
 Usage (must be the tfenet env):
-    /path/to/envs/conda-envs/tfenet/bin/python -m training.predict_tfenet \
+    python -m training.predict_tfenet \
         --split test --ckpt-set BAS --out-dir outputs/tfenet/BAS_test_masks
 """
 

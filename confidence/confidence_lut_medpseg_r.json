@@ -1,6 +1,5 @@
 {
- "description": "P(voxel is airway | vote pattern), fitted on the 30 ATM'26 validation volumes inside the anchored fused mask F = keep_seeded(A | MEDPSeg-R raw | TfeNet raw, A). pattern = airmorph_votes*4 + 2*medpseg_r + tfenet.",
- "source": "fitted with MEDPSeg-R epoch 35",
+ "description": "P(voxel is airway | vote pattern) inside the anchored fused mask F, fitted on the 30 ATM'26 validation volumes. pattern = airmorph_votes*4 + 2*medpseg_r + tfenet.",
  "table": [
   {
    "pattern": 0,
@@ -23,8 +22,8 @@
    "airmorph_votes": 0,
    "medpseg_r": 1,
    "tfenet": 0,
-   "p_airway": 0.6374,
-   "n_val_voxels": 53787
+   "p_airway": 0.6375,
+   "n_val_voxels": 53784
   },
   {
    "pattern": 3,
@@ -47,16 +46,16 @@
    "airmorph_votes": 1,
    "medpseg_r": 0,
    "tfenet": 1,
-   "p_airway": 0.2676,
-   "n_val_voxels": 5156
+   "p_airway": 0.2678,
+   "n_val_voxels": 5154
   },
   {
    "pattern": 6,
    "airmorph_votes": 1,
    "medpseg_r": 1,
    "tfenet": 0,
-   "p_airway": 0.1491,
-   "n_val_voxels": 15620
+   "p_airway": 0.1488,
+   "n_val_voxels": 15608
   },
   {
    "pattern": 7,
@@ -79,16 +78,16 @@
    "airmorph_votes": 2,
    "medpseg_r": 0,
    "tfenet": 1,
-   "p_airway": 0.2653,
-   "n_val_voxels": 8495
+   "p_airway": 0.2654,
+   "n_val_voxels": 8489
   },
   {
    "pattern": 10,
    "airmorph_votes": 2,
    "medpseg_r": 1,
    "tfenet": 0,
-   "p_airway": 0.2466,
-   "n_val_voxels": 29962
+   "p_airway": 0.2464,
+   "n_val_voxels": 29950
   },
   {
    "pattern": 11,
@@ -103,16 +102,16 @@
    "airmorph_votes": 3,
    "medpseg_r": 0,
    "tfenet": 0,
-   "p_airway": 0.1703,
-   "n_val_voxels": 175333
+   "p_airway": 0.1704,
+   "n_val_voxels": 175107
   },
   {
    "pattern": 13,
    "airmorph_votes": 3,
    "medpseg_r": 0,
    "tfenet": 1,
-   "p_airway": 0.3242,
-   "n_val_voxels": 17623
+   "p_airway": 0.3249,
+   "n_val_voxels": 17581
   },
   {
    "pattern": 14,
@@ -120,7 +119,7 @@
    "medpseg_r": 1,
    "tfenet": 0,
    "p_airway": 0.3553,
-   "n_val_voxels": 49500
+   "n_val_voxels": 49499
   },
   {
    "pattern": 15,
@@ -135,16 +134,16 @@
    "airmorph_votes": 4,
    "medpseg_r": 0,
    "tfenet": 0,
-   "p_airway": 0.338,
-   "n_val_voxels": 110789
+   "p_airway": 0.3382,
+   "n_val_voxels": 110691
   },
   {
    "pattern": 17,
    "airmorph_votes": 4,
    "medpseg_r": 0,
    "tfenet": 1,
-   "p_airway": 0.4586,
-   "n_val_voxels": 34286
+   "p_airway": 0.4593,
+   "n_val_voxels": 34231
   },
   {
    "pattern": 18,
@@ -152,23 +151,23 @@
    "medpseg_r": 1,
    "tfenet": 0,
    "p_airway": 0.5368,
-   "n_val_voxels": 84363
+   "n_val_voxels": 84358
   },
   {
    "pattern": 19,
    "airmorph_votes": 4,
    "medpseg_r": 1,
    "tfenet": 1,
-   "p_airway": 0.7603,
-   "n_val_voxels": 45752
+   "p_airway": 0.7604,
+   "n_val_voxels": 45745
   },
   {
    "pattern": 20,
    "airmorph_votes": 5,
    "medpseg_r": 0,
    "tfenet": 0,
-   "p_airway": 0.5285,
-   "n_val_voxels": 74111
+   "p_airway": 0.5286,
+   "n_val_voxels": 74107
   },
   {
    "pattern": 21,
@@ -176,7 +175,7 @@
    "medpseg_r": 0,
    "tfenet": 1,
    "p_airway": 0.6702,
-   "n_val_voxels": 97098
+   "n_val_voxels": 97091
   },
   {
    "pattern": 22,
@@ -192,7 +191,7 @@
    "medpseg_r": 1,
    "tfenet": 1,
    "p_airway": 0.9805,
-   "n_val_voxels": 4241471
+   "n_val_voxels": 4241470
   }
  ]
 }

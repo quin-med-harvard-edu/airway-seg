@@ -1,6 +1,7 @@
 """Table 1 rows on the ATM'26 split: each member with its own post-processing, pairwise unions,
-majority vote, and the anchored union (ours), with DSC, clDice, TLD, BND, sensitivity,
-precision and HD95.
+majority vote, three ablations that share the inputs of our method (the two anchored pairs and the
+largest component of the three-model union), and the anchored union (ours). Metrics: DSC, clDice,
+TLD, BND, sensitivity, precision and HD95.
 
 Inputs (one file per case, as written by this repository's prediction scripts):
     --airmorph DIR   ATM26_<id>.npz from airmorph_r/dump_airmorph_masks.py (key --airmorph-key)
@@ -29,7 +30,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(REPO, "fusion"))
 sys.path.insert(0, HERE)
-from anchored_union import anchored_union, majority, tfenet_post  # noqa: E402
+from anchored_union import anchored_union, largest_component, majority, tfenet_post  # noqa: E402
 from hd95 import hd95  # noqa: E402
 
 ARGS = None
@@ -76,6 +77,8 @@ def run(cid):
     T = tfenet_post(T_raw)
     rows = {"AirMorph-R (A)": A, "MEDPSeg-R (M)": M, "TfeNet (T)": T,
             "A|M": A | M, "A|T": A | T, "M|T": M | T, "Majority": majority(A, M, T),
+            "A|M~ anchored": anchored_union(A, M_raw), "A|T~ anchored": anchored_union(A, T_raw),
+            "A|M~|T~ largest": largest_component(A | M_raw | T_raw),
             "Ours": anchored_union(A, M_raw, T_raw)}
     out = []
     for name, mask in rows.items():
@@ -91,7 +94,7 @@ def main():
     ap.add_argument("--split", default="test", choices=["val", "test"])
     for k in ("airmorph", "medpseg", "tfenet", "labels", "centerlines"):
         ap.add_argument(f"--{k}", required=True)
-    ap.add_argument("--airmorph-key", default="raw", help="'raw' (3-of-5 vote) or 'post' (vote + largest component)")
+    ap.add_argument("--airmorph-key", default="post", help="post: 3-of-5 vote + largest component (used in the paper); raw: vote only")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--out", required=True)
     ARGS = ap.parse_args()

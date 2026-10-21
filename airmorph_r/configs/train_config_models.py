@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Per-model training configuration for the 5-model AirMorph segmentation ensemble.
 
-The mapping below is not guessed: the repo expects exactly 5 airway checkpoints, and
+The mapping below follows the released code: the repo expects exactly 5 airway checkpoints, and
 the paper describes exactly 5 models each trained with a distinct topology-preserving
 loss. Reading models/airway_model.py, models/airway_model_wingsnet.py and
 models/airway_model_break.py pins which checkpoint is which network, which output

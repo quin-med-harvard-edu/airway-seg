@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
 """Save AirMorph's ensemble mask per case so it can be fused with other methods.
 
-`training/evaluate.py` predicts and scores in one pass and never writes the masks out,
-so there is nothing on disk to OR against MEDPSeg and TfeNet. This script runs the same
-inference path and persists the result in the layout `training/predict_medpseg.py` and
-`training/predict_tfenet.py` already use, which `training/fuse_and_score.py` reads.
+`training/evaluate.py` predicts and scores in one pass and never writes the masks out. This
+script runs the same inference path and saves one ATM26_<id>.npz per case, the format read by
+fusion/ and evaluation/.
 
-The saved ensemble is **pre-LCC** on purpose. In the fusion study the largest-connected-
-component step runs once, on the final combined mask - applying it per method first would
-delete detached distal branches before the other methods get a chance to reconnect them.
-`training/evaluate.py:200` applies LCC because it scores AirMorph as the deployed
-standalone product; that is a different question from this one.
+Both the plain 3-of-5 vote and its largest connected component are saved. The fusion in the paper
+uses `post` as the AirMorph-R mask A.
 
 Arrays written per case (all uint8, all in the ORIGINAL image frame):
-    raw            3-of-5 vote, no LCC          <- what the fusion consumes
-    post           3-of-5 vote + LCC            <- the deployed AirMorph output
+    raw            3-of-5 vote, no LCC
+    post           3-of-5 vote + LCC            <- A in the paper
     member_<name>  each of the 5 models at 0.5  <- kept so member-level fusion needs no re-run
 
-Usage (the AirMorph `clip` env):
-    /path/to/envs/conda-envs/clip/bin/python -m training.dump_airmorph_masks \
+Usage (AirMorph environment, from the AirMorph clone):
+    python -m training.dump_airmorph_masks \
         --split test --device cuda:1 --out-dir outputs/airmorph/test_masks
 """
 
