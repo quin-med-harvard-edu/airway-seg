@@ -1,8 +1,8 @@
 # Anchored union fusion for airway segmentation
 
-Code for the ISBI 2027 paper "Automated Airway Segmentation: A Fusion Model for Both Pediatric and
-Adult CT" by Huseyin Umut Isik, Ege Mert Balçık, Duygu Atasoy, Asutosh Sahu, Sila Kurugol and
-Şeyda Ertekin.
+Code for the ISBI 2027 submission "Anchored Fusion for Automated Airway Segmentation in Pediatric
+and Adult CT" by Huseyin Umut Isik, Ege Mert Balcik, Duygu Atasoy, Asutosh Sahu, Şeyda Ertekin and
+Sila Kurugol.
 
 Airway models trained on adult CT miss different peripheral branches, and their own
 largest-component post-processing can keep a non-airway object instead of the airway, which happens
@@ -117,5 +117,14 @@ The ATM'26 data are not redistributed; they are available from the challenge. Ai
 TfeNet are not included: install `medpseg` as a package and clone the AirMorph and TfeNet
 repositories. See `NOTICE.md`.
 
-Trained weights will be added once the licence terms of the original models and the ATM'26 data
-have been checked.
+Trained weights are in the GitHub release `models-v1`: `airmorph_seg.tar.gz` (the five AirMorph-R
+networks), `medpseg_airway.tar.gz` (MEDPSeg-R) and `tfenet_bas.tar.gz` (the authors' TfeNet
+checkpoint). AirMorph-R and MEDPSeg-R were trained on ATM'26 data and are released under
+CC BY-NC 4.0 for non-commercial research use only, as required by the ATM'26 data usage
+agreement; see `LICENSE-WEIGHTS.md`. Publications using them must cite Zhang et al., Med. Image
+Anal. 90:102957, 2023.
+
+## Licence
+
+Code: MIT (`LICENSE`). Weights: CC BY-NC 4.0 (`LICENSE-WEIGHTS.md`). Third-party components:
+`NOTICE.md`.
