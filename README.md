@@ -4,6 +4,9 @@ Code for the ISBI 2027 submission "Anchored Fusion for Automated Airway Segmenta
 and Adult CT" by Huseyin Umut Isik, Ege Mert Balcik, Duygu Atasoy, Asutosh Sahu, Şeyda Ertekin and
 Sila Kurugol.
 
+**Web application:** https://humuti--airway-seg.modal.run. Upload a de-identified CT volume and
+receive the airway mask, centerline, branch measurements and confidence map.
+
 Airway models trained on adult CT miss different peripheral branches, and their own
 largest-component post-processing can keep a non-airway object instead of the airway, which happens
 more often on pediatric scans. We combine three models by voxel-wise union of their raw outputs and
@@ -106,7 +109,7 @@ python evaluation/build_generation_table.py results/generation > table2.tex
 
 ## Related tools
 
-- Web application: upload a CT volume and receive the airway mask, centerline, branch measurements
+- Web application (link at the top): upload a de-identified CT volume and receive the airway mask, centerline, branch measurements
   and confidence map (about ten minutes on one NVIDIA A10G GPU).
 - ITK-SNAP extension for 3D editing of airway segmentations:
   https://github.com/HUmutI/itksnap-3d-edit
