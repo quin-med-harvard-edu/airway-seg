@@ -1,5 +1,7 @@
 # Anchored union fusion for airway segmentation
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.40702-b31b1b.svg)](https://arxiv.org/abs/2610.40702) [![License: MIT](https://img.shields.io/badge/code-MIT-green.svg)](LICENSE) [![Weights: CC BY-NC 4.0](https://img.shields.io/badge/weights-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE-WEIGHTS.md)
+
 Code for the ISBI 2027 submission "Anchored Fusion for Automated Airway Segmentation in Pediatric
 and Adult CT" by Huseyin Umut Isik, Ege Mert Balcik, Duygu Atasoy, Asutosh Sahu, Şeyda Ertekin and
 Sila Kurugol.
@@ -131,3 +133,17 @@ Anal. 90:102957, 2023.
 
 Code: MIT (`LICENSE`). Weights: CC BY-NC 4.0 (`LICENSE-WEIGHTS.md`). Third-party components:
 `NOTICE.md`.
+
+## Citation
+
+If you use A-Fuse, the retrained models or the ITK-SNAP extension, please cite:
+
+```bibtex
+@article{isik2026afuse,
+  title   = {Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT},
+  author  = {Isik, Huseyin Umut and Balcik, Ege Mert and Atasoy, Duygu and Sahu, Asutosh and Ertekin, Seyda and Kurugol, Sila},
+  journal = {arXiv preprint arXiv:2610.40702},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2610.40702}
+}
+```

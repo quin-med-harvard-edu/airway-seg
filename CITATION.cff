@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this code or the weights, please cite the paper below."
+title: "Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT"
+type: software
+authors:
+  - family-names: Isik
+    given-names: Huseyin Umut
+  - family-names: Balcik
+    given-names: Ege Mert
+  - family-names: Atasoy
+    given-names: Duygu
+  - family-names: Sahu
+    given-names: Asutosh
+  - family-names: Ertekin
+    given-names: Seyda
+  - family-names: Kurugol
+    given-names: Sila
+repository-code: "https://github.com/quin-med-harvard-edu/airway-seg"
+url: "https://arxiv.org/abs/2610.40702"
+license: MIT
+preferred-citation:
+  type: article
+  title: "Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT"
+  authors:
+    - family-names: Isik
+      given-names: Huseyin Umut
+    - family-names: Balcik
+      given-names: Ege Mert
+    - family-names: Atasoy
+      given-names: Duygu
+    - family-names: Sahu
+      given-names: Asutosh
+    - family-names: Ertekin
+      given-names: Seyda
+    - family-names: Kurugol
+      given-names: Sila
+  journal: "arXiv preprint arXiv:2610.40702"
+  year: 2026
+  doi: 10.48550/arXiv.2610.40702
+  url: "https://arxiv.org/abs/2610.40702"
