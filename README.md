@@ -6,6 +6,8 @@ Code for the ISBI 2027 submission "Anchored Fusion for Automated Airway Segmenta
 and Adult CT" by Huseyin Umut Isik, Ege Mert Balcik, Duygu Atasoy, Asutosh Sahu, Şeyda Ertekin and
 Sila Kurugol.
 
+**Project page:** https://quin-med-harvard-edu.github.io/airway-seg/
+
 **Web application:** https://humuti--airway-seg.modal.run. Upload a de-identified CT volume and
 receive the airway mask, centerline, branch measurements and confidence map.
 

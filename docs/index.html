@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT</title>
+<meta name="description" content="A-Fuse (anchored fusion) merges three airway segmentation models and keeps the connected component that overlaps the anchor mask most. It keeps the airway tree in all 39 adult and pediatric test CTs. Code, weights, web app and an ITK-SNAP extension are public.">
+<meta name="keywords" content="A-Fuse, anchored fusion, airway segmentation, airway tree, pediatric CT, chest CT, ATM, AirMorph, MEDPSeg, TfeNet, ensemble, branch detection, ITK-SNAP">
+<link rel="canonical" href="https://quin-med-harvard-edu.github.io/airway-seg/">
+<meta name="citation_title" content="Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT">
+<meta name="citation_author" content="Huseyin Umut Isik">
+<meta name="citation_author" content="Ege Mert Balcik">
+<meta name="citation_author" content="Duygu Atasoy">
+<meta name="citation_author" content="Asutosh Sahu">
+<meta name="citation_author" content="Seyda Ertekin">
+<meta name="citation_author" content="Sila Kurugol">
+<meta name="citation_publication_date" content="2026/10/28">
+<meta name="citation_arxiv_id" content="2610.40702">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.40702">
+<meta name="citation_abstract_html_url" content="https://arxiv.org/abs/2610.40702">
+
+<meta property="og:type" content="article"><meta property="og:title" content="A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT">
+<meta property="og:description" content="A-Fuse (anchored fusion) merges three airway segmentation models and keeps the connected component that overlaps the anchor mask most. It keeps the airway tree in all 39 adult and pediatric test CTs. Code, weights, web app and an ITK-SNAP extension are public."><meta property="og:url" content="https://quin-med-harvard-edu.github.io/airway-seg/">
+<meta property="og:image" content="https://quin-med-harvard-edu.github.io/airway-seg/figures/overview.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT">
+<meta name="twitter:description" content="A-Fuse (anchored fusion) merges three airway segmentation models and keeps the connected component that overlaps the anchor mask most. It keeps the airway tree in all 39 adult and pediatric test CTs. Code, weights, web app and an ITK-SNAP extension are public."><meta name="twitter:image" content="https://quin-med-harvard-edu.github.io/airway-seg/figures/overview.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT", "name": "A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT", "author": [{"@type": "Person", "name": "Huseyin Umut Isik"}, {"@type": "Person", "name": "Ege Mert Balcik"}, {"@type": "Person", "name": "Duygu Atasoy"}, {"@type": "Person", "name": "Asutosh Sahu"}, {"@type": "Person", "name": "Seyda Ertekin"}, {"@type": "Person", "name": "Sila Kurugol"}], "datePublished": "2026-10-28", "abstract": "Airway segmentation from chest CT enables branch-level measurement of airway size and growth, but peripheral bronchi remain hard to segment, particularly in children, whose airways are smaller and for whom few annotated scans exist. Different models recover complementary branches of the airway tree. Their union improves overall tree coverage but also introduces disconnected non-airway objects. We propose anchored fusion (A-Fuse), which takes the voxel-wise union of TfeNet, a retrained MEDPSeg and a reimplemented AirMorph and retains the connected component with greatest overlap with the AirMorph mask. On 30 held-out adult CTs from the ATM'26 training set, A-Fuse reaches a Dice score of 93.24% and the highest branch detection rate among compared methods (92.05%). On nine pediatric scans, it reaches 94.15% Dice and 68.79% branch detection. A-Fuse retains the airway tree in all 39 test scans, whereas keeping the largest component selects a non-airway object in four. A-Fuse is deployed as an automated web application and we release all code, trained weights and an open-source ITK-SNAP extension for 3D tubular segmentation editing.", "url": "https://quin-med-harvard-edu.github.io/airway-seg/", "sameAs": ["https://arxiv.org/abs/2610.40702", "https://github.com/quin-med-harvard-edu/airway-seg"], "keywords": "A-Fuse, anchored fusion, airway segmentation, airway tree, pediatric CT, chest CT, ATM, AirMorph, MEDPSeg, TfeNet, ensemble, branch detection, ITK-SNAP", "identifier": {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2610.40702"}}</script>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mut:#555;--acc:#b31b1b;--card:#f6f6f4;--bd:#e3e3df}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#eee;--mut:#aaa;--acc:#ff6b6b;--card:#1b1b1b;--bd:#333}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em;text-align:center}
+h2{margin-top:2.2em;border-bottom:1px solid var(--bd);padding-bottom:.2em}
+.authors,.aff,.venue{text-align:center;margin:.3em 0}.aff{color:var(--mut);font-size:.95rem}.venue{font-weight:600;color:var(--acc)}
+.links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:1.4em 0}
+.links a{background:var(--fg);color:var(--bg);text-decoration:none;padding:8px 16px;border-radius:999px;font-size:.95rem;font-weight:600}
+figure{margin:1.6em 0;text-align:center}figure img{max-width:100%;height:auto;border-radius:6px;background:#fff}
+figcaption{color:var(--mut);font-size:.9rem;margin-top:.5em;text-align:left}
+table{border-collapse:collapse;margin:1em auto;font-size:.95rem}td,th{border:1px solid var(--bd);padding:6px 12px;text-align:center}th{background:var(--card)}
+pre{background:var(--card);border:1px solid var(--bd);padding:14px;border-radius:6px;overflow-x:auto;font-size:.85rem}
+a{color:var(--acc)}footer{margin-top:3em;color:var(--mut);font-size:.85rem;text-align:center}
+</style></head><body><main>
+<h1>A-Fuse: Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT</h1>
+<p class="authors"><a href="https://scholar.google.com/citations?user=UvtcTtEAAAAJ">Huseyin Umut Isik</a>, Ege Mert Balcik, Duygu Atasoy, Asutosh Sahu, &#350;eyda Ertekin, Sila Kurugol</p>
+<p class="aff">Middle East Technical University &middot; Boston Children's Hospital, Harvard Medical School</p>
+<p class="venue">arXiv preprint, October 2026</p>
+<div class="links"><a href="https://arxiv.org/abs/2610.40702">Paper (arXiv)</a><a href="https://arxiv.org/pdf/2610.40702">PDF</a><a href="https://github.com/quin-med-harvard-edu/airway-seg">Code</a><a href="https://github.com/quin-med-harvard-edu/airway-seg/releases/tag/models-v1">Weights</a></div>
+<figure><img src="figures/overview.png" alt="A-Fuse method overview: union of three airway models followed by anchored component selection" loading="lazy"><figcaption>Method. The union of AirMorph-R (anchor), MEDPSeg-R and TfeNet is reduced to the connected component that overlaps the anchor mask most.</figcaption></figure><figure><img src="figures/component_selection.png" alt="Component selection in an infant CT: largest-component selection keeps a non-airway object, anchored selection keeps the airway" loading="lazy"><figcaption>Component selection in an infant. Largest-component post-processing keeps a non-airway object; the anchored selection keeps the airway.</figcaption></figure><figure><img src="figures/confidence_examples.png" alt="Confidence map examples from A-Fuse" loading="lazy"><figcaption>Confidence map examples.</figcaption></figure>
+<h2>Abstract</h2><p>Airway segmentation from chest CT enables branch-level measurement of airway size and growth, but peripheral bronchi remain hard to segment, particularly in children, whose airways are smaller and for whom few annotated scans exist. Different models recover complementary branches of the airway tree. Their union improves overall tree coverage but also introduces disconnected non-airway objects. We propose anchored fusion (A-Fuse), which takes the voxel-wise union of TfeNet, a retrained MEDPSeg and a reimplemented AirMorph and retains the connected component with greatest overlap with the AirMorph mask. On 30 held-out adult CTs from the ATM&#x27;26 training set, A-Fuse reaches a Dice score of 93.24% and the highest branch detection rate among compared methods (92.05%). On nine pediatric scans, it reaches 94.15% Dice and 68.79% branch detection. A-Fuse retains the airway tree in all 39 test scans, whereas keeping the largest component selects a non-airway object in four. A-Fuse is deployed as an automated web application and we release all code, trained weights and an open-source ITK-SNAP extension for 3D tubular segmentation editing.</p>
+
+<h2>Results</h2>
+<table><tr><th></th><th>Scans</th><th>Dice</th><th>Branch detection</th></tr>
+<tr><td>Adult (ATM'26 held-out)</td><td>30</td><td>93.24%</td><td><b>92.05%</b></td></tr>
+<tr><td>Pediatric</td><td>9</td><td>94.15%</td><td>68.79%</td></tr></table>
+<p>A-Fuse keeps the airway tree in all 39 test scans. Largest-component selection on the same union picks a non-airway object in four of them. No pediatric training data is used. The pediatric set is nine scans from one hospital with normal lungs, so performance in airway disease is untested.</p>
+<h2>What is in the release</h2>
+<ul><li>The fusion rule, AirMorph-R and MEDPSeg-R training code, evaluation scripts and the data split (MIT licence).</li>
+<li>Trained weights in the <a href="https://github.com/quin-med-harvard-edu/airway-seg/releases/tag/models-v1">models-v1 release</a> (CC BY-NC 4.0).</li>
+<li>An open-source ITK-SNAP extension for editing 3D tubular segmentations.</li></ul>
+<h2>BibTeX</h2><pre>@article{isik2026afuse,
+  title   = {Anchored Fusion for Automated Airway Segmentation in Pediatric and Adult CT},
+  author  = {Isik, Huseyin Umut and Balcik, Ege Mert and Atasoy, Duygu and Sahu, Asutosh and Ertekin, Seyda and Kurugol, Sila},
+  journal = {arXiv preprint arXiv:2610.40702},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2610.40702}
+}</pre>
+<footer>Code: MIT. Weights: CC BY-NC 4.0. Page source: <a href="https://github.com/quin-med-harvard-edu/airway-seg/tree/main/docs">github.com/quin-med-harvard-edu/airway-seg</a>.</footer>
+</main></body></html>
